@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function findLongestPalindrome(str) {
+            // Helper function to expand around center and check for palindrome
+            function expandAroundCenter(left, right) {
+                while (left >= 0 && right < str.length && str[left] === str[right]) {
+                left--;
+                right++;
+                }
+                // Return the palindrome found
+                return str.slice(left + 1, right);
+            }
+            let longest = "";
+            for (let i = 0; i < str.length; i++) {
+                // Check for odd-length palindromes (centered at i)
+                let oddPalindrome = expandAroundCenter(i, i);
+
+                // Check for even-length palindromes (centered between i and i+1)
+                let evenPalindrome = expandAroundCenter(i, i + 1);
+
+                // Keep the longest palindrome found
+                if (oddPalindrome.length > longest.length) {
+                    longest = oddPalindrome;
+                }
+
+                if (evenPalindrome.length > longest.length) {
+                    longest = evenPalindrome;
+                }
+            }
+            return longest;
+}
+
+// Example usage:
+console.log(findLongestPalindrome("racecar")); // Output: "racecar"
+console.log(findLongestPalindrome("banana"));  // Output: "anana"
+console.log(findLongestPalindrome("hello"));   // Output: "ll"
+
+    </script>
+    
+</body>
+</html>
