@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function formatCurrency(amount, currencyCode) {
+            // Define how each currency should be formatted
+            const currencyFormats = {
+                USD: { symbol: '$', symbolPosition: 'before', decimals: 2, thousandSeparator: ',', decimalSeparator: '.' },
+                EUR: { symbol: '€', symbolPosition: 'after', decimals: 2, thousandSeparator: '.', decimalSeparator: ',' },
+                INR: { symbol: '₹', symbolPosition: 'before', decimals: 2, thousandSeparator: ',', decimalSeparator: '.' },
+                JPY: { symbol: '¥', symbolPosition: 'before', decimals: 0, thousandSeparator: ',', decimalSeparator: '' }
+            };
+            const format = currencyFormats[currencyCode] || currencyFormats['USD'];
+            // Round the number to the required decimal places
+            let numberParts = amount.toFixed(format.decimals).split('.');
+            // Format the integer part with thousand separators
+            let integerPart = numberParts[0];
+            let decimalPart = numberParts[1] || '';
+            // Add commas for thousands (simplified logic)
+            let formattedInteger = '';
+            let count = 0;
+            // Add comma every 3 digits from the end
+            for (let i = integerPart.length - 1; i >= 0; i--) {
+                formattedInteger = integerPart[i] + formattedInteger;
+                count++;
+                if (count % 3 === 0 && i !== 0) {
+                    formattedInteger = format.thousandSeparator + formattedInteger;
+                }
+            }
+            // Combine integer and decimal parts
+            let formattedNumber = formattedInteger;
+            if (format.decimals > 0) {
+                formattedNumber += format.decimalSeparator + decimalPart;
+            }
+            // Place the currency symbol before or after the amount
+            if(format.symbolPosition === 'before') {
+                return format.symbol + formattedNumber;
+            } 
+            else{
+                return formattedNumber + ' ' + format.symbol;
+            }
+        }
+        console.log(formatCurrency(1234567.89, 'USD')); // $1,234,567.89
+        console.log(formatCurrency(1234567.89, 'EUR')); // 1.234.567,89 €
+        console.log(formatCurrency(1234567.89, 'INR')); // ₹1,234,567.89
+        console.log(formatCurrency(1234567.89, 'JPY')); // ¥1,234,568
+
+    </script>
+</body>
+</html>
