@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const user = {
+            age: 25,
+            hasLicense: true,
+            temperature: 28,
+            humidity: 65,
+            role: "editor",
+            isActive: true,
+            isBanned: false,
+            loginAttempts: 2,
+            isPremium: true,
+            points: 150,
+            isVerified: true
+        };
+        console.log(evaluateConditions(user)); 
+        // Output: "Eligible to drive" (this matches the first condition)
+
+        function evaluateConditions(obj) {
+            // 1. Age and License check
+            if (obj.age > 18 && obj.hasLicense === true) {
+                return "Eligible to drive";
+            }
+            // 2. Temperature OR Humidity check
+            if (obj.temperature > 30 || obj.humidity > 70) {
+                return "Warning: High discomfort level";
+            }
+            // 3. Role and Active status check
+            if ((obj.role === "admin" || obj.role === "editor") && obj.isActive === true) {
+                return "Access granted";
+            }
+            // 4. NOT operator example - user must not be banned
+            if (!obj.isBanned && obj.loginAttempts < 5) {
+                return "Login allowed";
+            }
+            // 5. Complex: User must be a premium user, and either has points OR is verified
+            if (obj.isPremium && (obj.points > 100 || obj.isVerified)) {
+                return "Premium access granted";
+            }
+            // 6. Complex: If age is under 13 OR NOT verified, block access
+            if (obj.age < 13 || !obj.isVerified) {
+                return "Access denied: Age or verification issue";
+            }
+            // 7. If none of the conditions match
+            return "No matching conditions";
+        }
+    </script>
+</body>
+</html>
