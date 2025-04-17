@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Optional: Add this in <head> to fix it -->
+    <link rel="icon" href="favicon.ico">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="myList">
+        <li>First item</li>
+        <li>Second item</li>
+        <li>Third item</li>
+        <li>Fourth item</li>
+      </ul>
+      <style>
+            .highlight {
+                background-color: yellow;
+            }
+
+      </style>
+      <script>
+        const listItems = document.querySelectorAll('#myList li');
+        // Log the total number of list items
+        console.log('Total list items:', listItems.length);
+        // Iterate through each list item
+        listItems.forEach((item, index) => {
+            // Log the text content of each item
+            console.log('Item', index + 1, ':', item.textContent);
+            // Add "highlight" class to every second item (index 1, 3, 5,...)
+            if ((index + 1) % 2 === 0) {
+                item.classList.add('highlight');
+            }
+        });
+
+      </script>
+</body>
+</html>
