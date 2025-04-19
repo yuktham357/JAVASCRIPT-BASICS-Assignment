@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <h1>My List</h1>
+        <ul id="myList">
+          <li class="item">Item 1</li>
+          <li class="item">Item 2</li>
+          <li class="item">Item 3</li>
+        </ul>
+        <button id="addButton">Add Item</button>
+      </div>
+      <script>
+            // Step 1: Get the button and the list from the page
+            const addButton = document.getElementById("addButton");
+            const myList = document.getElementById("myList");
+
+            // Step 2: When the "Add Item" button is clicked
+            addButton.addEventListener("click", function () {
+                const newItem = document.createElement("li"); // Create a new <li> tag
+                newItem.textContent = "New Item";             // Set its text to "New Item"
+                newItem.className = "item";                   // Give it the same class
+                // Make the new item remove itself when clicked
+                newItem.addEventListener("click", function () {
+                    myList.removeChild(newItem);  
+                    }
+                );
+                // Add the new item to the end of the list
+                myList.appendChild(newItem);
+                }
+            );
+            // Step 3: Make the old items removable when clicked
+            const items = document.querySelectorAll(".item");
+            items.forEach(function (item) {
+                item.addEventListener("click", function () {
+                    myList.removeChild(item);    
+                    }
+                   );
+                }
+            );
+      </script>
+      
+</body>
+</html>
